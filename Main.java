@@ -1,37 +1,22 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Estoque estoque = new Estoque();
 
-        System.out.print("Digite o valor do pagamento: R$");
-        double valor = sc.nextDouble();
-        sc.nextLine(); 
+        estoque.adicionarProduto("P001", "Bolo de Chocolate", 10, 45.00, "2024-01-15", "Fornada do Dia");
+        estoque.adicionarProduto("P002", "Brigadeiro", 50, 2.50, "2024-01-15", "Produção Própria");
+        estoque.adicionarProduto("P003", "Coxinha", 30, 4.50, "2024-01-15", "Produção Própria");
 
-        System.out.println("Escolha a forma de pagamento:");
-        System.out.println("1 - Pix");
-        System.out.println("2 - Cartao");
-        System.out.print("Opcao: ");
-        int opcao = sc.nextInt();
-        sc.nextLine(); 
+        estoque.adicionarProduto("P001", "Bolo de Morango", 5, 52.00, "2024-01-16", "Fornada do Dia");
 
-        Pagamento pagamento = null;
+        System.out.println(estoque.consultarProduto("P001"));
+        System.out.println(estoque.consultarProduto("P999"));
 
-        if (opcao == 1) {
-            System.out.print("Digite a chave Pix: ");
-            String chave = sc.nextLine();
-            pagamento = new PagamentoPix(valor, chave);
-        } else if (opcao == 2) {
-            System.out.print("Digite o numero do cartao: ");
-            String cartao = sc.nextLine();
-            pagamento = new PagamentoCartao(valor, cartao);
-        } else {
-            System.out.println("Opcao invalida");
-            System.exit(0);
-        }
+        System.out.println(estoque.listarProdutos());
 
-        pagamento.realizarPagamento();
+        estoque.descontarEstoque("P001");
+        estoque.descontarEstoque("P002", 10);
+        estoque.descontarEstoque("P999", 1);
 
-        sc.close();
+        System.out.println(estoque.listarProdutos());
     }
 }
